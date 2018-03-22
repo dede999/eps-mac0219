@@ -1,4 +1,4 @@
-## Eps de programação paralela
+# Eps de programação paralela
 
 # Mini Eps
 
