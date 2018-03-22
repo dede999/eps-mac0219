@@ -1,0 +1,20 @@
+André Luiz Abdalla Silveira -- #USP 8030353
+
+O trabalho consiste em comparar o desempenho de uma rotina pra percorrer uma matriz de 500 linhas e 1000000 colunas.
+Nas linhas 18-24 (a), a matriz é percorrida por linhas. Nas linhas 26-32 (b), por colunas.
+
+Acontece que as linhas em (a) processam-se bem mais rápido que em (b). Isso acontece pois, a cada acesso ao elemento de
+uma linha (dado que esse elemento não estava no canhe anteriormente), acontecerá que, ou a linha será carregada inteira
+ou em partes (se não couber na memória principal).
+
+Quando se percorre em linha, há menos acessos ao cache se comparado com o acesso em colunas. Isso acontece, pois a cada
+acesso de um elemento distinto (de uma coluna distinta), faz-se necessária uma nova visita à memória principal.
+
+Comando: make [run]
+
+Alguns resultados:
+|-------------------------|
+|---linha----|--coluna----|
+|-- 0.839 ---|-- 2.389 ---|
+|-- 0.764 ---|-- 3.379 ---|
+|-------------------------|
