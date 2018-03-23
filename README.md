@@ -6,5 +6,3 @@
 - nº 2 -- Sapos e rãs e threads
 
 # True Eps
-
-olá andré
