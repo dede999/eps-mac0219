@@ -16,5 +16,5 @@ pacote:
 	#cp *.txt ./andre.silveira.mauricio.cardoso
 	cp Makefile ./andre.silveira.mauricio.cardoso
 	#tar -cvf andre.silveira.tar andre.silveira.mauricio.cardoso
-    7z a -r andre.silveira.mauricio.cardoso.7z eps-andre.silveira.mauricio.cardoso
+    	7z a -r andre.silveira.mauricio.cardoso.7z eps-andre.silveira.mauricio.cardoso
 	rm -rf andre.silveira.mauricio.cardoso
