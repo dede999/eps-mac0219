@@ -28,9 +28,9 @@ int pedras;
 int tam_lagoa;
 int cont = 0; /* representa a quantidade de vezes que um animal não se moveu */
 
-void movimentando (void * a) {
-    Pedra spot = (Pedra) a;
-    printf("Animal %d na casa %d", spot.id, spot.n_pedra);
+void *movimentando (void * a) {
+    Pedra *spot = (Pedra *) a;
+    printf("Animal %d na casa %d", spot->id, spot->n_pedra);
     pthread_exit(NULL);
 }
 
@@ -54,7 +54,7 @@ int main (int argc, char *argv[]) {
         for (i = 0; i < ras; ++i) { /*alocando rãs no vetor de pedras e pthreads*/
             lagoa[i].n_pedra = i;        
             lagoa[i].id = RA;
-            if (pthread_create(pedra[qtde_thread++], NULL, movimentando, (void *) lagoa[i])) {
+            if (pthread_create(&pedra[qtde_thread++], NULL, movimentando, (void *) &lagoa[i])) {
                 printf("Erro ao criar uma thread RA\n");
                 exit(1);
             }
@@ -71,7 +71,7 @@ int main (int argc, char *argv[]) {
             j++;
             lagoa[ind].id = SAPO;
             lagoa[ind].n_pedra = ind;
-            if (pthread_create(pedra[qtde_thread++], NULL, movimentando, (void *) lagoa[ind])) {
+            if (pthread_create(&pedra[qtde_thread++], NULL, movimentando, (void *) &lagoa[ind])) {
                 printf("Erro ao criar uma thread SAPO\n");
                 exit(1);
             }
