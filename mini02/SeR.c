@@ -16,6 +16,7 @@ typedef struct pedra {
 #define VAZIO 0 
 #define SAPO 1
 #define RA -1
+#define MAX 5000
 /**
  * Vetor que representa a lagoa
  * * 1 sapo
@@ -27,10 +28,17 @@ Pedra *lagoa;  /* pode ser um vetor de Animal ou inteiro */
 int pedras;
 int tam_lagoa;
 int cont = 0; /* representa a quantidade de vezes que um animal não se moveu */
+pthread_mutex_t mutex;
 
-void *movimentando (void * a) {
-    Pedra *spot = (Pedra *) a;
-    printf("Animal %d na casa %d", spot->id, spot->n_pedra);
+void movimentando (void * a) {
+    Pedra spot = (Pedra) a;
+    while(cont < MAX) {
+        pthread_mutex_lock(&mutex);
+        // fazendo a "magica"
+        if (spot.id)
+        pthread_mutex_unlock(&mutex);
+    }
+    printf("Animal %d na casa %d\n", spot.id, spot.n_pedra);
     pthread_exit(NULL);
 }
 
