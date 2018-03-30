@@ -8,7 +8,7 @@ clean: m-ep2 pacote
 	rm -rf ./andre.silveira.mauricio.cardoso
 
 run: m-ep2
-	./$< 2 3
+	./$< 1 1
 
 pacote:
 	mkdir andre.silveira.mauricio.cardoso
