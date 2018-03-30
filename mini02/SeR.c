@@ -9,13 +9,14 @@
 /*#define LENGTH(x) (sizeof(x)/sizeof(x[0]))*/
 
 typedef struct pedra {
-    int id; /* identifier de animal ou pedra*/
-    int n_pedra; /* # da casa (ou pedra) em que o animal está */
+    int posPedra;   /* posicao pedra na lagoa */
+    int tipoAnimal; /* identifica sapo, ra ou pedra vazia*/
+    pthread_t animalThread; /* thread do animal, se for null, é uma pedra vazia */
 } Pedra;
 
-#define VAZIO 0 
+#define VAZIO -1
 #define SAPO 1
-#define RA -1
+#define RA 2
 #define MAX 5000
 /**
  * Vetor que representa a lagoa
@@ -30,70 +31,93 @@ int tam_lagoa;
 int cont = 0; /* representa a quantidade de vezes que um animal não se moveu */
 pthread_mutex_t mutex;
 
-void troca (int a, int b) {
-    Pedra aux;
-    aux = lagoa[a];
-    lagoa[a] = lagoa[b];
-    lagoa[b] = aux;
+void trocaAnimais (int posPedra1, int posPedra2) {
+    int  tipoAnimalAux;
+    pthread_t animalThreadAux;
+
+    tipoAnimalAux = lagoa[posPedra1].tipoAnimal;
+    lagoa[posPedra1].tipoAnimal = lagoa[posPedra2].tipoAnimal;
+    lagoa[posPedra2].tipoAnimal = tipoAnimalAux;
+
+    animalThreadAux = lagoa[posPedra1].animalThread;
+    lagoa[posPedra1].animalThread = lagoa[posPedra2].animalThread;
+    lagoa[posPedra2].animalThread = animalThreadAux;
 }
 
-void mostra (int id){
-    if (id == RA) printf("RA ");
-    else if (id == SAPO) printf("SAPO ");
+void mostra (int tipoAnimal){
+    if (tipoAnimal == RA) printf("RA ");
+    else if (tipoAnimal == SAPO) printf("SAPO ");
     else printf("VAZIO ");
 }
 
 void debug() {
     int i;
     for (i = 0; i < tam_lagoa; ++i) {
-        mostra(lagoa[i].id);
+        mostra(lagoa[i].tipoAnimal);
     }
     printf("\n");
 }
 
-void movimentando (void * a) {
-    Pedra * spot = (Pedra *) a;
-    int pedra = spot->n_pedra;
+void *movimentando (void * pedra) {
+    Pedra * pedraComAnimal = (Pedra *) pedra;
+    int posPedra = pedraComAnimal->posPedra;
     while(cont < MAX) {
         pthread_mutex_lock(&mutex);
-        if (spot->id == RA) {
-            if (pedra + 1 < tam_lagoa && lagoa[pedra + 1].id == VAZIO) {
-                spot->n_pedra ++;
-                lagoa[pedra + 1].n_pedra --;
-                troca(pedra,pedra + 1);
-                cont = 0;
+        if (pedraComAnimal->tipoAnimal == RA) {
+            if (posPedra + 1 < tam_lagoa && lagoa[posPedra + 1].tipoAnimal == VAZIO) {
+                trocaAnimais(posPedra, posPedra + 1);
+                cont = 0; /* reseta contador, pois ocorreu pulo */
                 debug();
-            } else if (pedra + 2 < tam_lagoa && lagoa[pedra + 2].id == VAZIO) {
-                spot->n_pedra += 2;
-                lagoa[pedra + 1].n_pedra -= 2;
-                troca(pedra,pedra + 2);
-                cont = 0;
+            } 
+            else if (posPedra + 2 < tam_lagoa && lagoa[posPedra + 2].tipoAnimal == VAZIO) {
+                trocaAnimais(posPedra, posPedra + 2);                
+                cont = 0; /* reseta contador, pois ocorreu pulo */
                 debug();
-            } else {
+            } 
+            else {
                 cont ++;
             }
-        } else {
-            if (pedra - 1 >= 0 && lagoa[pedra - 1].id == VAZIO) {
-                spot->n_pedra --;
-                lagoa[pedra - 1].n_pedra ++;
-                troca(pedra,pedra - 1);
-                cont = 0;
+        } 
+        else if (pedraComAnimal->tipoAnimal == SAPO) {
+            if (posPedra - 1 >= 0 && lagoa[posPedra - 1].tipoAnimal == VAZIO) {
+                trocaAnimais(posPedra, posPedra - 1);
+                cont = 0; /* reseta contador, pois ocorreu pulo */
                 debug();
-            } else if (pedra - 2 >= 0 && lagoa[pedra + 2].id == VAZIO) {
-                spot->n_pedra -= 2;
-                lagoa[pedra + 1].n_pedra += 2;
-                troca(pedra,pedra + 2);
-                cont = 0;
+            } 
+            else if (posPedra - 2 >= 0 && lagoa[posPedra - 2].tipoAnimal == VAZIO) {
+                trocaAnimais(posPedra, posPedra - 2);
+                cont = 0; /* reseta contador, pois ocorreu pulo */
                 debug();
-            } else {
+            } 
+            else {
                 cont ++;
             }
         }
         pthread_mutex_unlock(&mutex);
     }
-    printf("Animal %d na casa %d\n", spot->id, spot->n_pedra);
+    printf("Animal %d na casa %d\n", pedraComAnimal->tipoAnimal, pedraComAnimal->posPedra);
     pthread_exit(NULL);
 }
+
+
+void preparaLagoa(int ras) {
+    int i = 0;
+    for (i = 0; i < ras; ++i) { /*alocando rãs no vetor de pedras */
+        lagoa[i].posPedra = i;
+        lagoa[i].tipoAnimal = RA;        
+    }
+
+    lagoa[i].posPedra = i;
+    lagoa[i].tipoAnimal = VAZIO;
+    i++;
+
+    for (; i < tam_lagoa; ++i) { /*alocando sapos no vetor de pedras */ 
+        lagoa[i].posPedra = i;
+        lagoa[i].tipoAnimal = SAPO;        
+    }
+
+}
+
 
 int main (int argc, char *argv[]) {
     if (argc < 3) {
@@ -102,50 +126,43 @@ int main (int argc, char *argv[]) {
         return 1;
     }
     else {
-        pthread_t *pedra;
         int sapos = atoi (argv[1]);
         int ras = atoi (argv[2]);
-        int i, j = 0, k, ind, qtde_thread = 0; /* contadores */
+        int i, k; /* contadores */
 
         tam_lagoa = ras + sapos + 1;
 
         lagoa = malloc(tam_lagoa * sizeof(Pedra));
-        pedra = malloc((ras + sapos) * sizeof(pthread_t));
 
-        for (i = 0; i < ras; ++i) { /*alocando rãs no vetor de pedras e pthreads*/
-            lagoa[i].n_pedra = i;        
-            lagoa[i].id = RA;
-            if (pthread_create(&pedra[qtde_thread++], NULL, movimentando, (void *) &lagoa[i])) {
+
+        preparaLagoa(ras);
+
+
+        for (i = 0; i < ras; ++i) { /*rãs começam a pular*/
+            if (pthread_create(&lagoa[i].animalThread, NULL, movimentando, (void *) &lagoa[i])) {
                 printf("Erro ao criar uma thread RA\n");
+                exit(1);
+            }
+            
+        }        
+
+        for (i++; i < tam_lagoa; ++i) { /*sapos começam a pular*/
+            if (pthread_create(&lagoa[i].animalThread, NULL, movimentando, (void *) &lagoa[i])) {
+                printf("Erro ao criar uma thread SAPO\n");
                 exit(1);
             }
             
         }
 
-        lagoa[i].id = VAZIO;
-        lagoa[i].n_pedra = i;
 
-
-        i = tam_lagoa -  1;
-        while (j < sapos) {  /*alocando sapos no vetor de pedras e pthreads*/
-            ind = i - j;
-            j++;
-            lagoa[ind].id = SAPO;
-            lagoa[ind].n_pedra = ind;
-            if (pthread_create(&pedra[qtde_thread++], NULL, movimentando, (void *) &lagoa[ind])) {
-                printf("Erro ao criar uma thread SAPO\n");
-                exit(1);
-            }
-        }
-        for (k = 0; k < (ras + sapos); ++k) {
+/*        for (k = 0; k < (ras + sapos); ++k) {
             if (pthread_join(pedra[k], NULL)) {
                 printf("Erro ao finalizar uma das thread\n");
                 exit(1);
             }
-        }
+        }*/
 
         free(lagoa);
-        free(pedra);
         return 0;
     }
 }
