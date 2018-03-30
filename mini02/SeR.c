@@ -6,7 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-/*#define LENGTH(x) (sizeof(x)/sizeof(x[0]))*/
 
 typedef struct pedra {
     int posPedra;   /* posicao pedra na lagoa */
@@ -17,22 +16,17 @@ typedef struct pedra {
 #define VAZIO -1
 #define SAPO 1
 #define RA 2
-#define MAX 500
-/**
- * Vetor que representa a lagoa
- * * 1 sapo
- * * -1 rã
- * * 0 pedra vazia
- */
+
 Pedra *lagoa;  /* pode ser um vetor de Animal ou inteiro */
 
+int MAX;
 int threadsAtivas = 0;
 int tam_lagoa;
 int cont = 0; /* representa a quantidade de vezes que um animal não se moveu */
 pthread_mutex_t mutex;
 
 void trocaAnimais (int posPedra1, int posPedra2) {
-    int  tipoAnimalAux;
+    int tipoAnimalAux;
 
     tipoAnimalAux = lagoa[posPedra1].tipoAnimal;
     lagoa[posPedra1].tipoAnimal = lagoa[posPedra2].tipoAnimal;
@@ -51,11 +45,12 @@ void mostraLagoa() {
 }
 
 void *movimentando (void * pedra) {
+    int i = 0;
     Pedra * pedraComAnimal = (Pedra *) pedra;
     int posPedra = pedraComAnimal->posPedra;
 
-    while(threadsAtivas < tam_lagoa) { /* barreira de sincronização */
-        printf("threads %d\n", threadsAtivas);
+    while(threadsAtivas < tam_lagoa) { 
+        i++;
     }
 
     while(cont < MAX) {
@@ -93,16 +88,6 @@ void *movimentando (void * pedra) {
         pthread_mutex_unlock(&mutex);
     }
 
-    if (pedraComAnimal->tipoAnimal == RA){
-        printf("Animal ra na pedra %d\n", pedraComAnimal->posPedra);
-    }
-    else if (pedraComAnimal->tipoAnimal == SAPO) {
-        printf("Animal sapo na pedra %d\n", pedraComAnimal->posPedra);
-    }
-    else {
-        printf("Nenhum animal na pedra %d\n", pedraComAnimal->posPedra);
-    }
-
     pthread_exit(NULL);
 }
 
@@ -137,7 +122,7 @@ int main (int argc, char *argv[]) {
         int i;
 
         tam_lagoa = ras + sapos + 1;
-
+        MAX = tam_lagoa * 100000;
         lagoa = malloc(tam_lagoa * sizeof(Pedra));
 
         preparaLagoa(ras);
