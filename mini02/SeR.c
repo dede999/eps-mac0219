@@ -33,15 +33,10 @@ pthread_mutex_t mutex;
 
 void trocaAnimais (int posPedra1, int posPedra2) {
     int  tipoAnimalAux;
-    pthread_t animalThreadAux;
 
     tipoAnimalAux = lagoa[posPedra1].tipoAnimal;
     lagoa[posPedra1].tipoAnimal = lagoa[posPedra2].tipoAnimal;
     lagoa[posPedra2].tipoAnimal = tipoAnimalAux;
-
-    animalThreadAux = lagoa[posPedra1].animalThread;
-    lagoa[posPedra1].animalThread = lagoa[posPedra2].animalThread;
-    lagoa[posPedra2].animalThread = animalThreadAux;
 }
 
 
@@ -59,8 +54,8 @@ void *movimentando (void * pedra) {
     Pedra * pedraComAnimal = (Pedra *) pedra;
     int posPedra = pedraComAnimal->posPedra;
 
-    while(threadsAtivas < tam_lagoa -1) { /* barreira de sincronização */
-
+    while(threadsAtivas < tam_lagoa) { /* barreira de sincronização */
+        printf("threads %d\n", threadsAtivas);
     }
 
     while(cont < MAX) {
@@ -81,6 +76,7 @@ void *movimentando (void * pedra) {
             }
         } 
         else if (pedraComAnimal->tipoAnimal == SAPO) {
+
             if (posPedra - 1 >= 0 && lagoa[posPedra - 1].tipoAnimal == VAZIO) {
                 trocaAnimais(posPedra, posPedra - 1);
                 cont = 0; /* reseta contador, pois ocorreu pulo */
@@ -140,44 +136,31 @@ int main (int argc, char *argv[]) {
         int sapos = atoi (argv[1]);
         int ras = atoi (argv[2]);
         int i;
-        pthread_t *saposRasThreads;
 
         tam_lagoa = ras + sapos + 1;
 
         lagoa = malloc(tam_lagoa * sizeof(Pedra));
-        saposRasThreads = malloc((sapos + ras) * sizeof(pthread_t));
 
         preparaLagoa(ras);
         mostraLagoa();
 
-        for (i = 0; i < ras; ++i) { /*rãs começam a pular*/
-            if (pthread_create(&lagoa[i].animalThread, NULL, movimentando, (void *) &lagoa[i])) {
-                printf("Erro ao criar uma thread RA\n");
-                exit(1);
-            }
-            saposRasThreads[i] = lagoa[i].animalThread;
-            threadsAtivas++;            
-        }
-
-        for (i++; i < tam_lagoa; ++i) { /*sapos começam a pular*/
+        for (i = 0; i < tam_lagoa; ++i) { /*rãs começam a pular*/
             if (pthread_create(&lagoa[i].animalThread, NULL, movimentando, (void *) &lagoa[i])) {
                 printf("Erro ao criar uma thread SAPO\n");
                 exit(1);
             }
-            saposRasThreads[i-1] = lagoa[i].animalThread;
-            threadsAtivas++;            
+            threadsAtivas++;
         }
 
 
-        for (i = 0; i < (ras + sapos); ++i) {
-            if (pthread_join(saposRasThreads[i], NULL)) {
+        for (i = 0; i < tam_lagoa; ++i) {
+            if (pthread_join(lagoa[i].animalThread, NULL)) {
                 printf("Erro ao finalizar uma das thread\n");
                 exit(1);
             }
         }
 
         free(lagoa);
-        free(saposRasThreads);
         return 0;
     }
 }
