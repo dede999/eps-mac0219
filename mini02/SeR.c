@@ -61,45 +61,34 @@ void *movimentando (void * pedra) {
     while(cont < MAX) {
         pthread_mutex_lock(&mutex);
         if (pedraComAnimal->tipoAnimal == RA) {
-            printf("RA tenta pular: ");
             if (posPedra + 1 < tam_lagoa && lagoa[posPedra + 1].tipoAnimal == VAZIO) {
-                printf("%d --> ", pedraComAnimal->posPedra);
                 trocaAnimais(posPedra, posPedra + 1);
-                printf("%d", pedraComAnimal->posPedra);
                 cont = 0; /* reseta contador, pois ocorreu pulo */
                 mostraLagoa();
             } 
             else if (posPedra + 2 < tam_lagoa && lagoa[posPedra + 2].tipoAnimal == VAZIO) {
-                printf("%d --> ", pedraComAnimal->posPedra);
                 trocaAnimais(posPedra, posPedra + 2);
-                printf("%d", pedraComAnimal->posPedra);
                 cont = 0; /* reseta contador, pois ocorreu pulo */
                 mostraLagoa();
             } 
             else {
                 cont ++;
             }
-            printf("\n");
         } 
         else if (pedraComAnimal->tipoAnimal == SAPO) {
             if (posPedra - 1 >= 0 && lagoa[posPedra - 1].tipoAnimal == VAZIO) {
-                printf("%d --> ", pedraComAnimal->posPedra);
                 trocaAnimais(posPedra, posPedra - 1);
-                printf("%d", pedraComAnimal->posPedra);
                 cont = 0; /* reseta contador, pois ocorreu pulo */
                 mostraLagoa();
             } 
             else if (posPedra - 2 >= 0 && lagoa[posPedra - 2].tipoAnimal == VAZIO) {
-                printf("%d --> ", pedraComAnimal->posPedra);
                 trocaAnimais(posPedra, posPedra - 2);
-                printf("%d", pedraComAnimal->posPedra);
                 cont = 0; /* reseta contador, pois ocorreu pulo */
                 mostraLagoa();
             } 
             else {
                 cont ++;
             }
-            printf("\n");
         }
         pthread_mutex_unlock(&mutex);
     }
