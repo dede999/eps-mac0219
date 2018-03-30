@@ -17,7 +17,7 @@ typedef struct pedra {
 #define VAZIO -1
 #define SAPO 1
 #define RA 2
-#define MAX 5000
+#define MAX 50000
 /**
  * Vetor que representa a lagoa
  * * 1 sapo
@@ -117,7 +117,6 @@ void preparaLagoa(int ras) {
     for (i = 0; i < ras; ++i) { /*alocando rãs no vetor de pedras */
         lagoa[i].posPedra = i;
         lagoa[i].tipoAnimal = RA;
-        threadsAtivas++;
     }
 
     lagoa[i].posPedra = i;
@@ -126,10 +125,8 @@ void preparaLagoa(int ras) {
 
     for (; i < tam_lagoa; ++i) { /*alocando sapos no vetor de pedras */ 
         lagoa[i].posPedra = i;
-        lagoa[i].tipoAnimal = SAPO;
-        threadsAtivas++;        
+        lagoa[i].tipoAnimal = SAPO;        
     }
-
 }
 
 
@@ -142,12 +139,13 @@ int main (int argc, char *argv[]) {
     else {
         int sapos = atoi (argv[1]);
         int ras = atoi (argv[2]);
-        int i, k; /* contadores */
+        int i;
+        pthread_t *saposRasThreads;
 
         tam_lagoa = ras + sapos + 1;
 
         lagoa = malloc(tam_lagoa * sizeof(Pedra));
-
+        saposRasThreads = malloc((sapos + ras) * sizeof(pthread_t));
 
         preparaLagoa(ras);
         mostraLagoa();
@@ -157,26 +155,29 @@ int main (int argc, char *argv[]) {
                 printf("Erro ao criar uma thread RA\n");
                 exit(1);
             }
-            
-        }        
+            saposRasThreads[i] = lagoa[i].animalThread;
+            threadsAtivas++;            
+        }
 
         for (i++; i < tam_lagoa; ++i) { /*sapos começam a pular*/
             if (pthread_create(&lagoa[i].animalThread, NULL, movimentando, (void *) &lagoa[i])) {
                 printf("Erro ao criar uma thread SAPO\n");
                 exit(1);
             }
-            
+            saposRasThreads[i-1] = lagoa[i].animalThread;
+            threadsAtivas++;            
         }
 
 
-        for (k = 0; k < tam_lagoa; ++k) {
-            if (pthread_join(lagoa[k].animalThread, NULL)) {
+        for (i = 0; i < (ras + sapos); ++i) {
+            if (pthread_join(saposRasThreads[i], NULL)) {
                 printf("Erro ao finalizar uma das thread\n");
                 exit(1);
             }
         }
 
         free(lagoa);
+        free(saposRasThreads);
         return 0;
     }
 }
