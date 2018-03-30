@@ -30,15 +30,68 @@ int tam_lagoa;
 int cont = 0; /* representa a quantidade de vezes que um animal não se moveu */
 pthread_mutex_t mutex;
 
+void troca (int a, int b) {
+    Pedra aux;
+    aux = lagoa[a];
+    lagoa[a] = lagoa[b];
+    lagoa[b] = aux;
+}
+
+void mostra (int id){
+    if (id == RA) printf("RA ");
+    else if (id == SAPO) printf("SAPO ");
+    else printf("VAZIO ");
+}
+
+void debug() {
+    int i;
+    for (i = 0; i < tam_lagoa; ++i) {
+        mostra(lagoa[i].id);
+    }
+    printf("\n");
+}
+
 void movimentando (void * a) {
-    Pedra spot = (Pedra) a;
+    Pedra * spot = (Pedra *) a;
+    int pedra = spot->n_pedra;
     while(cont < MAX) {
         pthread_mutex_lock(&mutex);
-        // fazendo a "magica"
-        if (spot.id)
+        if (spot->id == RA) {
+            if (pedra + 1 < tam_lagoa && lagoa[pedra + 1].id == VAZIO) {
+                spot->n_pedra ++;
+                lagoa[pedra + 1].n_pedra --;
+                troca(pedra,pedra + 1);
+                cont = 0;
+                debug();
+            } else if (pedra + 2 < tam_lagoa && lagoa[pedra + 2].id == VAZIO) {
+                spot->n_pedra += 2;
+                lagoa[pedra + 1].n_pedra -= 2;
+                troca(pedra,pedra + 2);
+                cont = 0;
+                debug();
+            } else {
+                cont ++;
+            }
+        } else {
+            if (pedra - 1 >= 0 && lagoa[pedra - 1].id == VAZIO) {
+                spot->n_pedra --;
+                lagoa[pedra - 1].n_pedra ++;
+                troca(pedra,pedra - 1);
+                cont = 0;
+                debug();
+            } else if (pedra - 2 >= 0 && lagoa[pedra + 2].id == VAZIO) {
+                spot->n_pedra -= 2;
+                lagoa[pedra + 1].n_pedra += 2;
+                troca(pedra,pedra + 2);
+                cont = 0;
+                debug();
+            } else {
+                cont ++;
+            }
+        }
         pthread_mutex_unlock(&mutex);
     }
-    printf("Animal %d na casa %d\n", spot.id, spot.n_pedra);
+    printf("Animal %d na casa %d\n", spot->id, spot->n_pedra);
     pthread_exit(NULL);
 }
 
