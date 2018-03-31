@@ -17,4 +17,4 @@ de aleatoriedade é muito pouco provavel que situações se repitam em grande es
 
 Modo de uso: 
 01. $ make [para compilar]
-02. $ ./m-ep2 S R [S -- sapos | R -- rãs]
+02. $ ./m-ep2 n-sapos n-rãs
