@@ -16,5 +16,5 @@ pacote:
 	cp *.txt ./andre.silveira.mauricio.cardoso
 	cp Makefile ./andre.silveira.mauricio.cardoso
 	#tar-cvfandre.silveira.tarandre.silveira.mauricio.cardoso
-	zip andre.silveira.mauricio.cardoso.zip *
+	zip andre.silveira.mauricio.cardoso.zip andre.silveira.mauricio.cardoso/*
 	rm -rf andre.silveira.mauricio.cardoso
