@@ -14,3 +14,7 @@ O que se percebeu é que situações de sucesso são raramente observadas. Isso 
 pois há uma série de movimentos específicos que possibilitam o sucesso. Numa situação 
 de aleatoriedade é muito pouco provavel que situações se repitam em grande escala. Isto 
 é, a taxa de sucesso é maior quanto menores forem as quantidades de sapos e rãs
+
+Modo de uso: 
+01. $ make [para compilar]
+02. $ ./m-ep2 S R [S -- sapos | R -- rãs]
