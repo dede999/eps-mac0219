@@ -1,0 +1,16 @@
+André Luiz Abdalla Silveira -- 8030353
+Mauricio Luiz Cardoso -- 6796479
+
+Mini Ep 02
+
+A implementação desse mini EP passa pela manipulação de instâncias da estrutura Pedra. 
+Cada uma têm um identificador de animais, o número da pedra e uma thread associada. 
+No início do programa, a lagoa é preparada posicionando N sapos e M rãs e criando uma 
+thread pra cada uma. Dentro da função movimentando, cada animal "olha" à sua frente uma 
+ou duas pedras. Quando não é possivel que determinado animal se mova, um contador é 
+incrementado. No caso contrário, o contador é zerado.
+
+O que se percebeu é que situações de sucesso são raramente observadas. Isso acontece, 
+pois há uma série de movimentos específicos que possibilitam o sucesso. Numa situação 
+de aleatoriedade é muito pouco provavel que situações se repitam em grande escala. Isto 
+é, a taxa de sucesso é maior quanto menores forem as quantidades de sapos e rãs
