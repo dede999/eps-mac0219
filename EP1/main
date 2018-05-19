@@ -1,0 +1,14 @@
+#!/bin/bash
+#Script base, me pergunte se não souber o que fazer com ele
+
+if $# -lt 4; then
+    echo "Quantidade errada de argumentos"
+    exit 1;
+fi
+
+if $1 -eq 'pthreads'; then
+    echo "Use a versão com Pthreads"
+
+else
+    echo "Use a outra versão"
+fi
