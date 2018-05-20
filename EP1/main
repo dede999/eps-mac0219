@@ -1,14 +1,21 @@
 #!/bin/bash
 #Script base, me pergunte se não souber o que fazer com ele
 
-if $# -lt 4; then
-    echo "Quantidade errada de argumentos"
-    exit 1;
+if [ $# -lt 4 ] 
+then
+	echo "São necessários 4 argumentos"
+	echo $#
+	exit 1
 fi
 
-if $1 -eq 'pthreads'; then
+if [ $1 == 'p' ] 
+then
     echo "Use a versão com Pthreads"
-
-else
-    echo "Use a outra versão"
+    gcc -ansi -pedantic -Wall -O2 -pthread pth.c -o multMatPth
+    ./multMatPth $2 $3 $4
+elif [ $1 == 'o' ] 
+then
+    echo "Use a versão com OpenMP"
+    gcc -ansi -pedantic -Wall -O2 -pthread openmp.c -o multMatOpenMp
+    ./multMatOpenMp $2 $3 $4
 fi
