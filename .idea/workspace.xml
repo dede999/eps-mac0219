@@ -35,8 +35,8 @@
       <file leaf-file-name="main" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EP1/main">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+            <state relative-caret-position="255">
+              <caret line="17" column="51" lean-forward="true" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -44,8 +44,8 @@
       <file leaf-file-name="ep1.tex" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PDFs/ep1.tex">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+            <state relative-caret-position="480">
+              <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -65,26 +65,26 @@
       <file leaf-file-name="matrizC.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+            <state relative-caret-position="45">
+              <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pth.c" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pth.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EP1/pth.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="39" column="28" lean-forward="true" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+            <state relative-caret-position="303">
+              <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="openmp.c" pinned="false" current-in-tab="true">
+      <file leaf-file-name="openmp.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+            <state relative-caret-position="213">
+              <caret line="22" selection-start-line="22" selection-end-line="32" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -102,9 +102,9 @@
         <option value="$PROJECT_DIR$/PDFs/ep1.tex" />
         <option value="$PROJECT_DIR$/EP1/main" />
         <option value="$PROJECT_DIR$/PDFs/basic.sty" />
-        <option value="$PROJECT_DIR$/EP1/pth.c" />
         <option value="$PROJECT_DIR$/EP1/matrizC.txt" />
         <option value="$PROJECT_DIR$/EP1/openmp.c" />
+        <option value="$PROJECT_DIR$/EP1/pth.c" />
       </list>
     </option>
   </component>
@@ -234,12 +234,12 @@
       <workItem from="1525379731242" duration="1675000" />
       <workItem from="1526667005530" duration="104000" />
       <workItem from="1526667257412" duration="1566000" />
-      <workItem from="1526849210558" duration="5599000" />
+      <workItem from="1526849210558" duration="6929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12232000" />
+    <option name="totallyTimeSpent" value="13562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="-1" width="1372" height="748" extended-state="6" />
@@ -247,12 +247,12 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49891067" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="CMake" order="7" sideWeight="0.49341142" weight="0.32917318" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5065886" side_tool="true" weight="0.32917318" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49633968" weight="0.32761312" />
+      <window_info anchor="bottom" id="CMake" order="10" sideWeight="0.49341142" weight="0.32917318" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5065886" side_tool="true" weight="0.32917318" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49633968" weight="0.32761312" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32917318" />
       <window_info id="Structure" order="1" sideWeight="0.5023256" side_tool="true" weight="0.24963397" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49121523" visible="true" weight="0.28081122" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49121523" visible="true" weight="0.27925116" />
       <window_info id="Favorites" order="2" sideWeight="0.50108933" side_tool="true" weight="0.24963397" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -409,15 +409,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EP1/main">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+        <state relative-caret-position="255">
+          <caret line="17" column="51" lean-forward="true" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PDFs/ep1.tex">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        <state relative-caret-position="480">
+          <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -431,24 +431,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EP1/pth.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="39" column="28" lean-forward="true" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        <state relative-caret-position="45">
+          <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
+        <state relative-caret-position="213">
+          <caret line="22" selection-start-line="22" selection-end-line="32" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/pth.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="42" column="1" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
         </state>
       </provider>
     </entry>
