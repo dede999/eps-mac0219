@@ -1,5 +1,4 @@
 #!/bin/bash
-#Script base, me pergunte se não souber o que fazer com ele
 
 if [ $# -lt 4 ] 
 then
