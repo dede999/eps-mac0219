@@ -32,20 +32,59 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mini02/Makefile">
+      <file leaf-file-name="main" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EP1/main">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+            <state relative-caret-position="270">
+              <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projeto.tex" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mini04/projeto.tex">
+      <file leaf-file-name="ep1.tex" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PDFs/ep1.tex">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="587">
+              <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="basic.sty" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PDFs/basic.sty">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="72" column="23" selection-start-line="72" selection-start-column="23" selection-end-line="72" selection-end-column="23" />
+              <folding>
+                <element signature="e#323#350#2" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="matrizC.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pth.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/EP1/pth.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="573">
+              <caret line="39" column="28" lean-forward="true" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="openmp.c" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="318">
+              <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -60,6 +99,12 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/mini02/Makefile" />
+        <option value="$PROJECT_DIR$/PDFs/ep1.tex" />
+        <option value="$PROJECT_DIR$/EP1/main" />
+        <option value="$PROJECT_DIR$/PDFs/basic.sty" />
+        <option value="$PROJECT_DIR$/EP1/pth.c" />
+        <option value="$PROJECT_DIR$/EP1/matrizC.txt" />
+        <option value="$PROJECT_DIR$/EP1/openmp.c" />
       </list>
     </option>
   </component>
@@ -101,6 +146,11 @@
               <item name="eps-mac0219" type="462c0819:PsiDirectoryNode" />
               <item name="mini01" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="eps-mac0219" type="b2602c69:ProjectViewProjectNode" />
+              <item name="eps-mac0219" type="462c0819:PsiDirectoryNode" />
+              <item name="PDFs" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -131,8 +181,19 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="LaTeX.projeto">
+  <component name="RunManager" selected="LaTeX.ep1">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all" />
+    <configuration name="ep1" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
+      <texify>
+        <compiler>PDFLATEX</compiler>
+        <compiler-path />
+        <compiler-arguments />
+        <main-file>$PROJECT_DIR$/PDFs/ep1.tex</main-file>
+        <aux-dir>true</aux-dir>
+        <output-format>PDF</output-format>
+        <bib-run-config />
+      </texify>
+    </configuration>
     <configuration name="projeto" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
       <texify>
         <compiler>PDFLATEX</compiler>
@@ -147,9 +208,11 @@
     <list>
       <item itemvalue="Application.Build All" />
       <item itemvalue="LaTeX.projeto" />
+      <item itemvalue="LaTeX.ep1" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="LaTeX.ep1" />
         <item itemvalue="LaTeX.projeto" />
       </list>
     </recent_temporary>
@@ -171,15 +234,16 @@
       <workItem from="1525379731242" duration="1675000" />
       <workItem from="1526667005530" duration="104000" />
       <workItem from="1526667257412" duration="1566000" />
-      <workItem from="1526849210558" duration="494000" />
+      <workItem from="1526849210558" duration="5599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7127000" />
+    <option name="totallyTimeSpent" value="12232000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="-1" width="1372" height="748" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49891067" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -188,7 +252,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49633968" weight="0.32761312" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32917318" />
       <window_info id="Structure" order="1" sideWeight="0.5023256" side_tool="true" weight="0.24963397" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49121523" visible="true" weight="0.28393134" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49121523" visible="true" weight="0.28081122" />
       <window_info id="Favorites" order="2" sideWeight="0.50108933" side_tool="true" weight="0.24963397" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -314,16 +378,16 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library.c" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mini01/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mini04/projeto.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mini02/Makefile">
@@ -333,10 +397,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mini04/projeto.tex">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/ep1.aux">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/main">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="51" lean-forward="true" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PDFs/ep1.tex">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="47" column="33" selection-start-line="47" selection-start-column="33" selection-end-line="47" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PDFs/basic.sty">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="72" column="23" selection-start-line="72" selection-start-column="23" selection-end-line="72" selection-end-column="23" />
+          <folding>
+            <element signature="e#323#350#2" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/pth.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="39" column="28" lean-forward="true" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
         </state>
       </provider>
     </entry>

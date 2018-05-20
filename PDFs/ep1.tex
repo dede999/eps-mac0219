@@ -7,7 +7,7 @@
 % Preamble
 \documentclass[11pt]{article}
 \usepackage{basic}
-\author{André Luiz Abdalla $8030353$ \\ Mauricio Abreu Cardoso $0000000$}
+\author{André Luiz Abdalla $8030353$ \\ Mauricio Luiz Abreu Cardoso $6796479$}
 \title{Relatório EP1}
 
 % Document
@@ -16,6 +16,36 @@
 
     \section{Introdução}
 
-    O algoritmo utilizado para a multiplicação das matrizes é ...
+    O algoritmo utilizado para a multiplicação das matrizes é o mais básico e simples para se resolver tal problema,
+    dado que não queríamos inserir dificuldades desnecessárias
+
+    \begin{lstlisting}[caption=Função para multiplicar matrizes]
+double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int cb) {
+    int c, d, k;
+    double sum = 0;
+
+    double **mat_c = malloc (ca * sizeof(double *));
+    for (c = 0; c < la; c++)
+        mat_c[c] = malloc (cb * sizeof(double));
+
+
+    for (c = 0; c < la; c++) {
+        for (d = 0; d < cb; d++) {
+            for (k = 0; k < ca; k++) {
+                sum = sum + mat_a[c][k]*mat_b[k][d];
+            }
+            mat_c[c][d] = sum;
+            sum = 0;
+        }
+    }
+
+    return mat_c;
+}
+    \end{lstlisting}
+
+    Tendo a ferramenta multiplicadora e o que demais foi necessário, cuidamos de como paralelizar \begin{itemize}
+        \item[\textbf{Pthreads}] [Como fizemos as pthreads]
+        \item[\textbf{Open MP}] [Como fizemos com Open MP]
+    \end{itemize}
 
 \end{document}
