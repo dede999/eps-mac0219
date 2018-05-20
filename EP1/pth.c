@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 typedef struct conjuntoLinhas {
     int linhaInicial;   /* a partir de qual linha vai multiplicar */
@@ -42,15 +43,38 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
     }
 }
 
+
+
+
+void *multiplicaLinhas (void *conjLinhasTrab) {
+    int c, d, k, sum = 0;
+    linhasMatTrab *linhasTrab = (linhasMatTrab *) conjLinhasTrab;
+
+    printf("%d\n", linhasTrab->linhaInicial);
+    printf("%d\n", linhasTrab->linhaFinal);
+    for (c = linhasTrab->linhaInicial; c < linhasTrab->linhaFinal; c++) {
+      for (d = 0; d < linhasTrab->colunas_b; d++) {
+        for (k = 0; k < linhasTrab->linhas_b; k++) {
+          sum = sum + linhasTrab->mat_a[c][k]*linhasTrab->mat_b[k][d];
+        } 
+        linhasTrab->mat_c[c][d] = sum;
+        sum = 0;
+      }
+    }
+    pthread_exit(NULL);
+}
+
+
 double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int cb) {
     int c, d, k, i, linhaInicial, indLastThread;
     double sum = 0;
-    int numCPU = sysconf(_SC_NPROCESSORS_ONLN); /* numero de cores */
+    int numCpu = sysconf(_SC_NPROCESSORS_ONLN); /* numero de cores */
     int linhasPorThreads;
     int linhasUltimaThread;
     pthread_t *threadsMult;
     linhasMatTrab *conjLinhas;
 
+    
     /* aloca matriz c */
     double **mat_c = malloc (ca * sizeof(double *));
     for(c = 0; c < la; c++)
@@ -58,69 +82,50 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
 
     /* prepara argumento para threads */
     threadsMult = malloc (numCpu * sizeof(pthread_t));
-    conjLinhasTrab = malloc (numCpu * sizeof(linhasMatTrab));
+    conjLinhas = malloc (numCpu * sizeof(linhasMatTrab));
 
-    linhasUltimaThread = linhas % numCpu;
-    linhasPorThreads = linhas / numCpu;
+    linhasUltimaThread = la % numCpu;
+    linhasPorThreads = la / numCpu;
 
     for(i = 0; i < numCpu; ++i)
     {
         linhaInicial = i * linhasPorThreads;
-        conjLinhasTrab[i].linhaInicial =  linhaInicial;
-        conjLinhasTrab[i].linhaFinal = linhaInicial + linhasPorThreads - 1;
-        conjLinhasTrab[i].mat_a = mat_a;
-        conjLinhasTrab[i].mat_b = mat_b;
-        conjLinhasTrab[i].linhas_b = ca;
-        conjLinhasTrab[i].colunas_b = cb;
-        conjLinhasTrab[i].mat_c = mat_c;
+        conjLinhas[i].linhaInicial =  linhaInicial;
+        conjLinhas[i].linhaFinal = linhaInicial + linhasPorThreads;
+        conjLinhas[i].mat_a = mat_a;
+        conjLinhas[i].mat_b = mat_b;
+        conjLinhas[i].linhas_b = ca;
+        conjLinhas[i].colunas_b = cb;
+        conjLinhas[i].mat_c = mat_c;
     }
 
-    if(linhasUltimaThread != 0) { /* ultima thread tem menos linhas que as demais */
+    if(linhasUltimaThread != 0) { /* ultima thread pode ter menos linhas que as demais */
         indLastThread = numCpu - 1;
-        conjLinhasTrab[indLastThread].linhaFinal = indLastThread * linhasPorThreads + linhasUltimaThread - 1;
+        conjLinhas[indLastThread].linhaFinal = indLastThread * linhasPorThreads + linhasUltimaThread;
     }
 
     for (i = 0; i < numCpu; ++i)
     {
-        if (pthread_create(&threadsMult[i], NULL, multiplicaLinhas, (void *) &conjLinhasTrab[i])) {
-            printf("Erro ao criar uma thread SAPO\n");
+        if (pthread_create(&threadsMult[i], NULL, multiplicaLinhas, (void *) &conjLinhas[i])) {
+            printf("Erro ao criar uma thread\n");
             exit(EXIT_FAILURE);
         }
     }
  
 
+    for (i = 0; i < numCpu; ++i) {
+        if (pthread_join(threadsMult[i], NULL)) {
+            printf("Erro ao finalizar uma das threads\n");
+            exit(EXIT_FAILURE);
+        }
+    }
 
-
-
-
-/*    for (c = 0; c < la; c++) {
-      for (d = 0; d < cb; d++) {
-        for (k = 0; k < ca; k++) {
-          sum = sum + mat_a[c][k]*mat_b[k][d];
-        } 
-        mat_c[c][d] = sum;
-        sum = 0;
-      }
-    }*/
+    free(threadsMult);
+    free(conjLinhas);
 
     return mat_c;
 }
 
-void *multiplicaLinhas (void *conjLinhasTrab) {
-    int c, d, k, sum = 0;
-    linhasMatTrab *linhasTrab = (linhasMatTrab *) conjLinhasTrab;
-
-    for (c = linhasTrab->; c < la; c++) {
-      for (d = 0; d < cb; d++) {
-        for (k = 0; k < ca; k++) {
-          sum = sum + mat_a[c][k]*mat_b[k][d];
-        } 
-        mat_c[c][d] = sum;
-        sum = 0;
-      }
-    }
-
-}
 
 void apaga (double **mat, int linhas){
     int i;
