@@ -27,7 +27,7 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
     for (l = 0; l < linhas; ++l) {
         for (c = 0; c < colunas; ++c) {
             if (matriz[l][c] != 0.0) 
-                fprintf(arq, "%d %d %lf\n", linhas, colunas, matriz[l][c]);
+                fprintf(arq, "%d %d %lf\n", l + 1, c + 1, matriz[l][c]);
         }
     }
 }
@@ -40,7 +40,7 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
     for (c = 0; c < la; c++)
         mat_c[c] = malloc (cb * sizeof(double));
 
-
+    #pragma omp parallel for schedule(static, 2) num_threads(4) ordered
     for (c = 0; c < la; c++) {
       for (d = 0; d < cb; d++) {
         for (k = 0; k < ca; k++) {
