@@ -10,12 +10,12 @@ fi
 
 if [ $1 == 'p' ] 
 then
-    echo "Use a versão com Pthreads"
-    gcc -ansi -pedantic -Wall -O2 -pthread pth.c -o multMatPth
+    echo "Usando a versão com Pthreads"
+    gcc -pthread pth.c -o multMatPth
     ./multMatPth $2 $3 $4
 elif [ $1 == 'o' ] 
 then
-    echo "Use a versão com OpenMP"
-    gcc -ansi -pedantic -Wall -O2 -pthread openmp.c -o multMatOpenMp
+    echo "Usando a versão com OpenMP"
+    gcc -pthread openmp.c -o multMatOpenMp
     ./multMatOpenMp $2 $3 $4
 fi
