@@ -27,7 +27,7 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
     for (l = 0; l < linhas; ++l) {
         for (c = 0; c < colunas; ++c) {
             if (matriz[l][c] != 0.0) 
-                fprintf(arq, "%d %d %lf\n", l + 1, c + 1, matriz[l][c]);
+                fprintf(arq, "%d %d %.2lf\n", l + 1, c + 1, matriz[l][c]);
         }
     }
 }

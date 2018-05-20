@@ -65,8 +65,8 @@
       <file leaf-file-name="matrizC.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="15">
+              <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -84,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="318">
-              <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+              <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -103,6 +103,7 @@
         <option value="$PROJECT_DIR$/EP1/main" />
         <option value="$PROJECT_DIR$/PDFs/basic.sty" />
         <option value="$PROJECT_DIR$/EP1/pth.c" />
+        <option value="$PROJECT_DIR$/EP1/matrizC.txt" />
         <option value="$PROJECT_DIR$/EP1/openmp.c" />
       </list>
     </option>
@@ -233,12 +234,12 @@
       <workItem from="1525379731242" duration="1675000" />
       <workItem from="1526667005530" duration="104000" />
       <workItem from="1526667257412" duration="1566000" />
-      <workItem from="1526849210558" duration="4600000" />
+      <workItem from="1526849210558" duration="5599000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11233000" />
+    <option name="totallyTimeSpent" value="12232000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="-1" width="1372" height="748" extended-state="6" />
@@ -430,13 +431,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EP1/pth.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="573">
@@ -444,10 +438,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/EP1/matrizC.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EP1/openmp.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
-          <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+          <caret line="29" column="38" selection-start-line="29" selection-start-column="38" selection-end-line="29" selection-end-column="38" />
         </state>
       </provider>
     </entry>
