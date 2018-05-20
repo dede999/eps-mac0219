@@ -3,6 +3,16 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+typedef struct conjuntoLinhas {
+    int linhaInicial;   /* a partir de qual linha vai multiplicar */
+    int linhaFinal; /* a ultima linha a ser multiplicada */
+    double **mat_a;
+    double **mat_b;
+    int linhas_b;
+    int colunas_b;
+    double **mat_c;
+} linhasMatTrab;
+
 double** le_matriz (int linhas, int colunas, FILE *arq){
     int l, c;
     double valor;
@@ -33,15 +43,74 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
 }
 
 double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int cb) {
-    int c, d, k;
+    int c, d, k, i, linhaInicial, indLastThread;
     double sum = 0;
+    int numCPU = sysconf(_SC_NPROCESSORS_ONLN); /* numero de cores */
+    int linhasPorThreads;
+    int linhasUltimaThread;
+    pthread_t *threadsMult;
+    linhasMatTrab *conjLinhas;
 
+    /* aloca matriz c */
     double **mat_c = malloc (ca * sizeof(double *));
-    for (c = 0; c < la; c++)
+    for(c = 0; c < la; c++)
         mat_c[c] = malloc (cb * sizeof(double));
 
+    /* prepara argumento para threads */
+    threadsMult = malloc (numCpu * sizeof(pthread_t));
+    conjLinhasTrab = malloc (numCpu * sizeof(linhasMatTrab));
 
-    for (c = 0; c < la; c++) {
+    linhasUltimaThread = linhas % numCpu;
+    linhasPorThreads = linhas / numCpu;
+
+    for(i = 0; i < numCpu; ++i)
+    {
+        linhaInicial = i * linhasPorThreads;
+        conjLinhasTrab[i].linhaInicial =  linhaInicial;
+        conjLinhasTrab[i].linhaFinal = linhaInicial + linhasPorThreads - 1;
+        conjLinhasTrab[i].mat_a = mat_a;
+        conjLinhasTrab[i].mat_b = mat_b;
+        conjLinhasTrab[i].linhas_b = ca;
+        conjLinhasTrab[i].colunas_b = cb;
+        conjLinhasTrab[i].mat_c = mat_c;
+    }
+
+    if(linhasUltimaThread != 0) { /* ultima thread tem menos linhas que as demais */
+        indLastThread = numCpu - 1;
+        conjLinhasTrab[indLastThread].linhaFinal = indLastThread * linhasPorThreads + linhasUltimaThread - 1;
+    }
+
+    for (i = 0; i < numCpu; ++i)
+    {
+        if (pthread_create(&threadsMult[i], NULL, multiplicaLinhas, (void *) &conjLinhasTrab[i])) {
+            printf("Erro ao criar uma thread SAPO\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+ 
+
+
+
+
+
+/*    for (c = 0; c < la; c++) {
+      for (d = 0; d < cb; d++) {
+        for (k = 0; k < ca; k++) {
+          sum = sum + mat_a[c][k]*mat_b[k][d];
+        } 
+        mat_c[c][d] = sum;
+        sum = 0;
+      }
+    }*/
+
+    return mat_c;
+}
+
+void *multiplicaLinhas (void *conjLinhasTrab) {
+    int c, d, k, sum = 0;
+    linhasMatTrab *linhasTrab = (linhasMatTrab *) conjLinhasTrab;
+
+    for (c = linhasTrab->; c < la; c++) {
       for (d = 0; d < cb; d++) {
         for (k = 0; k < ca; k++) {
           sum = sum + mat_a[c][k]*mat_b[k][d];
@@ -51,7 +120,6 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
       }
     }
 
-    return mat_c;
 }
 
 void apaga (double **mat, int linhas){
