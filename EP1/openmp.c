@@ -1,7 +1,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
+#include <omp.h>
+#include <unistd.h>
 
 double** le_matriz (int linhas, int colunas, FILE *arq){
     int l, c;
@@ -35,12 +36,13 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
 double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int cb) {
     int c, d, k;
     double sum = 0;
+    int numCpu = sysconf(_SC_NPROCESSORS_ONLN);
 
     double **mat_c = malloc (ca * sizeof(double *));
     for (c = 0; c < la; c++)
         mat_c[c] = malloc (cb * sizeof(double));
 
-    #pragma omp parallel for schedule(static, 2) num_threads(4) ordered
+    #pragma omp parallel for schedule(static, 2) num_threads(numCpu)
     for (c = 0; c < la; c++) {
       for (d = 0; d < cb; d++) {
         for (k = 0; k < ca; k++) {
