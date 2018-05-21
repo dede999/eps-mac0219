@@ -45,14 +45,11 @@ void imprime_matriz_arquivo (double **matriz, int linhas, int colunas, FILE *arq
 
 
 
-
 void *multiplicaLinhas (void *conjLinhasTrab) {
     int c, d, k, sum = 0;
     linhasMatTrab *linhasTrab = (linhasMatTrab *) conjLinhasTrab;
 
-    printf("%d\n", linhasTrab->linhaInicial);
-    printf("%d\n", linhasTrab->linhaFinal);
-    for (c = linhasTrab->linhaInicial; c < linhasTrab->linhaFinal; c++) {
+    for (c = linhasTrab->linhaInicial-1; c < linhasTrab->linhaFinal; c++) {
       for (d = 0; d < linhasTrab->colunas_b; d++) {
         for (k = 0; k < linhasTrab->linhas_b; k++) {
           sum = sum + linhasTrab->mat_a[c][k]*linhasTrab->mat_b[k][d];
@@ -74,6 +71,8 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
     pthread_t *threadsMult;
     linhasMatTrab *conjLinhas;
 
+    if (numCpu > la) /* caso que ha mais threads do que linhas */
+        numCpu = la;
     
     /* aloca matriz c */
     double **mat_c = malloc (ca * sizeof(double *));
@@ -89,9 +88,9 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
 
     for(i = 0; i < numCpu; ++i)
     {
-        linhaInicial = i * linhasPorThreads;
-        conjLinhas[i].linhaInicial =  linhaInicial;
-        conjLinhas[i].linhaFinal = linhaInicial + linhasPorThreads;
+        linhaInicial = i * linhasPorThreads + 1; /* necessario somar 1 para ter o numero da linha nao indexada por 0*/
+        conjLinhas[i].linhaInicial =  linhaInicial ;
+        conjLinhas[i].linhaFinal = linhaInicial + linhasPorThreads -1;
         conjLinhas[i].mat_a = mat_a;
         conjLinhas[i].mat_b = mat_b;
         conjLinhas[i].linhas_b = ca;
@@ -101,7 +100,8 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
 
     if(linhasUltimaThread != 0) { /* ultima thread pode ter menos linhas que as demais */
         indLastThread = numCpu - 1;
-        conjLinhas[indLastThread].linhaFinal = indLastThread * linhasPorThreads + linhasUltimaThread;
+        /* necessario somar 1 para tero numero da linha nao indexada por 0*/
+        conjLinhas[indLastThread].linhaFinal = (indLastThread + 1) * linhasPorThreads + linhasUltimaThread;
     }
 
     for (i = 0; i < numCpu; ++i)
