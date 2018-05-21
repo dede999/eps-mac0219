@@ -44,8 +44,10 @@ double** multiplicaMatrizes(double **mat_a, double **mat_b, int la, int ca, int 
     \end{lstlisting}
 
     Tendo a ferramenta multiplicadora e o que demais foi necessário, cuidamos de como paralelizar \begin{itemize}
-        \item[\textbf{Pthreads}] [Como fizemos as pthreads]
-        \item[\textbf{Open MP}] [Como fizemos com Open MP]
+        \item[\textbf{Pthreads}] A multiplicação de matrizes foi paralelizada de acordo com o número de núcleos disponíveis. Se a matriz A tiver mais linhas do que o processador tiver cores, serão alocadas threads em mesma quantidade que o número de cores, e as multiplocações das linhas da matriz A serão divididas entre as threads, de modo igual. Se o resto da divisão de linhas da matriz A pelo número de cores for diferente de 0, a última thread terá menos linhas a serem multiplicadas. Vale ressaltar que no caso que o número de linha de A é menor que o número de cores, a quantidade de threads será igual a quantidade de linhas, e cada thread receberá somente uma linha.
+        \item[\textbf{Open MP}] Para o programa usando essa ferramenta, incluímos uma linha
+        \footnote{\texttt{$\#$pragma omp parallel for schedule(static, 2) num\_threads(4) ordered}}. Além de garantir o
+        paralelismo para o for mais externo, permite que determinemos quantas threads haverão (4 neste caso) e que ordenemos sua execução
     \end{itemize}
 
 \end{document}
