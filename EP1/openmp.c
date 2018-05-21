@@ -1,7 +1,11 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
+#ifdef _OPENMP
+#include <omp.h>
+#else
+#define omp_get_thread_num() 0
+#endif
 
 double** le_matriz (int linhas, int colunas, FILE *arq){
     int l, c;
