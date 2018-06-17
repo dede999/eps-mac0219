@@ -16,7 +16,8 @@
 */
 
 #include <stdio.h>
-#define E 9 # qtde de elementos de cada matriz
+#define E 9 // qtde de elementos de cada matriz
+/*#define linhaTam 3 */
 
 /* pedaço de código copaido da apresentação, deve ser alterado sob demanda */
 __global__ void os_menores(int *a, int *b, int *c) {
@@ -82,24 +83,52 @@ void apaga (int **mat){
 	free(mat);
 }
 
-int main () {
-	int qtde;
-	int **mat;
-	FILE *entrada;
-	int i; # contador
-
-	entrada =  fopen(argv[1], "r");
-	if (entrada == NULL) {
-		printf("Deu ruim pra abrir o arquivo");
-		return EXIT_FAILURE;
-	}
-	mat = (int *) malloc(qtde * sizeof(int *));
+int** alocaMatrizes(int numMatrizes) {
+	int** mat = (int *) malloc(numMatrizes * sizeof(int *));
 	
-	for (i = 0; i < qtde; i ++){
+	for (int i = 0; i < numMatrizes; i ++){
 		mat[i] = (int) malloc(E * sizeof(int));
 	}
+	return mat;
+}
 
-	fclose(entrada);
-	leitura(get_min(mat, 0, qtde));
-	apaga(mat);
+double** alocaMatrizesArquivo(FILE *arq){
+    int numMatrizes, l, c;
+    char* asteriscos;
+    double valor;
+    double **matrizes;
+
+    fscanf(arq, "%d", &numMatrizes);
+    matrizes = alocaMatrizes(numMatrizes);
+    
+    for(int i = 0; i < numMatrizes; i++) {
+    	fscanf(arq, "%s", &asteriscos); //pula a linha de asteriscos
+    	for(int j = 0; j < E; j++)
+        	fscanf(arq, "%d", &matrizes[i][j]);
+    }
+    return matriz;
+}
+
+
+int main (int argc, char* argv[]) {
+	if(argc != 2) {
+		printf("Argumento do programa: nome do arquivo\n");
+	}
+	else {
+		int qtde;
+		int **mat;
+		FILE *entrada;
+		int i; # contador
+
+		entrada =  fopen(argv[1], "r");
+		if (entrada == NULL) {
+			printf("Deu ruim pra abrir o arquivo");
+			return EXIT_FAILURE;
+		}
+
+
+		fclose(entrada);
+		leitura(get_min(mat, 0, qtde));
+		apaga(mat);
+	}
 }
