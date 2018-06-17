@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 4 ] 
+then
+	echo "São necessários 4 argumentos"
+	echo $#
+	exit 1
+fi
+
+if [ $1 == 'p' ] 
+then
+    echo "Usando a versão com Pthreads"
+    gcc -pthread pth.c -o multMatPth
+    ./multMatPth $2 $3 $4
+elif [ $1 == 'o' ] 
+then
+    echo "Usando a versão com OpenMP"
+    gcc -pthread openmp.c -o multMatOpenMp -fopenmp
+    ./multMatOpenMp $2 $3 $4
+fi
