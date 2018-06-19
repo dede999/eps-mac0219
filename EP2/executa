@@ -1,0 +1,3 @@
+#!/bin/bash
+nvcc ep.cu -o ep $1
+./ep exemplo.txt
