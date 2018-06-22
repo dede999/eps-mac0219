@@ -97,31 +97,6 @@ void encontraMenorMatriz(int* matrizes) {
 }
 
 
-// int * get_min (int **mat, int ini, int fim) {
-//  int *parteA, *parteB;
-//  if (ini - fim > 1){ /* mais que 2 elementos*/
-//      meio = (ini + fim)/2;
-//      parteA = get_min(mat, ini, meio);
-//      parteB = get_min(mat, meio + 1, fim);
-//      return compara(parteA, parteB);
-//  }else if (ini - fim == 1){ /* 2 elementos */
-//      return compara(mat[ini], mat[fim]);
-//  }
-//  else {
-//      return mat[ini];
-//  }
-// }
-
-// void apaga (int **mat){
-//  int i;
-//  int linhas = (sizeof(mat)/sizeof(int *));
-//  for (i = 0; i < linhas; ++i) {
-//      free(mat[i]);
-//  }
-//  free(mat);
-// }
-
-
 /* Le o arquivo arq que contem matrizes no formato declarado
 no enunciado e retorna um vetor com todas matrizes lidas*/
 int* alocaMatrizesArquivo(FILE *arq){
