@@ -22,16 +22,12 @@
 int numMatrizes;
 
 
-__global__ void os_menores(int *d_matrizes, int numMats, int jump) {
-  int indexAtual = indexIni = threadIdx.x + blockIdx.x * blockDim.x;
-  int tamMatriz = 9;
+__global__ void os_menores(int *d_matrizes, int numMats, int posLimite, int jump) {
+  int indexIni = threadIdx.x + blockIdx.x * blockDim.x;
 
-  if(index < numMats * tamMatriz) {
-
-  }
-  else {
-    return;
-  }
+  for(int i = indexIni; i < posLimite; i += jump)
+    if(d_matrizes[indexIni] > d_matrizes[i])
+      d_matrizes[indexIni] = d_matrizes[i];
 
 }
 
@@ -49,24 +45,35 @@ void leitura (int *matrizes) {
 
 
 void menorMatriz(int *d_matrizes, int numMats) {
-  int numBlocks = numMats / 30;
-  int numMatResto;
-  int numThreads = 27;
+	if(numMats > 1) {
+	  int numBlocks = 0;
+	  int numMatResto;
+    int jump = 0;
+	  int numThreads = 0;
+    int posLimite;
 
+	
+    // carga de tamanho de um bloco
+	  if(numMats <= E * 10) {
+      numMatResto = 1;
+      numThreads = E;
+      numBlocks = 1;
+    }
+    else {
+      const int numMatThreads = 3; // 3 foi escolhido para que numthreads seja maior multiplo de E(tamanho de cada matriz) e menor que um warp(32)
+      numThreads = E * numMatThreads; 
+      int espacoTrabThre = 10 * numThreads; //cada thread devera comparar ate E * 10 matrizes
+      numBlocks = numMats / espacoTrabThre;
+      numMatResto = numBlocks * numMatThreads;
+    }
 
+    posLimite = numMats * E;
+    jump = numBlocks * numThreads;
+	  os_menores<<<numBlocks, numThreads>>>(d_matrizes, numMats, posLimite, jump);
+    cudaDeviceSynchronize();
 
-
-  os_menores<<<numBlocks, numThreads>>>(d_matrizes, numMats, numThreads * numBlocks);
-
-
-
-  // if((numMatResto = numMats % 30) != 0) {
-  //   // caso com chamada a mais
-
-  // }
-
-
-
+    menorMatriz(d_matrizes, numMatResto);
+	}
 }
 
 
@@ -129,7 +136,6 @@ int* alocaMatrizesArquivo(FILE *arq){
     for(int j = 0; j < E; j++)
       fscanf(arq, "%d", matrizesAux++);
   }
-  leitura(matrizes);
   return matrizes;
 }
 
@@ -146,8 +152,13 @@ int main (int argc, char* argv[]) {
       return EXIT_FAILURE;
     }
     int *matrizes = alocaMatrizesArquivo(entrada);
-
     fclose(entrada);
+
+    encontraMenorMatriz(matrizes);
+    leitura(matrizes);
+
+
+
     // leitura(get_min(mat, 0, qtde));
     free(matrizes);
     return EXIT_SUCCESS;
