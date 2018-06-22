@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp "mauricio@177.141.120.142:/home/mauricio/Área\ de\ Trabalho/andre/*" EP2/
+scp "mauricio@177.141.120.142:/home/mauricio/Área\ de\ Trabalho/andre/*" EP2/

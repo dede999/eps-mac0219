@@ -1,0 +1,5 @@
+#!/bin/bash
+
+scp  /home/bcc/andreluizas/Documents/eps-mac0219/EP2/* "mauricio@177.141.120.142:/home/mauricio/Área\ de\ Trabalho/andre/"
+
+
