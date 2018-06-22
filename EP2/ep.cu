@@ -6,13 +6,6 @@
 *   de matrizes. Cada matriz é representada por um vetor e todos estão 
 *   reunidos num vetor de vetores. A ideia é fazer uma função que faz uma 
 *   comparação entre vetores fazendo o mínimo de operações
-*
-*   Observação pro Mauricio (delete depois de ler): depois de passar um tempão
-*   pensando numa solução mais elegante, eu percebi que o número de comparações
-*   é o mesmo se compararmos com uma implemetação onde se contrapõem dois vetores
-*   iniciais, e o resultante da comparação com o próximo, e por aí vai.
-*   O que falta? 1- leitura de arquivos 2- fazer a parte de CUDA 3- corrigir eventuais
-*                                   bugs
 */
 
 #include <stdio.h>
@@ -22,7 +15,7 @@
 int numMatrizes;
 
 
-__global__ void os_menores(int *d_matrizes, int numMats, int posLimite, int jump) {
+__global__ void os_menores(int *d_matrizes, int posLimite, int jump) {
   int indexIni = threadIdx.x + blockIdx.x * blockDim.x;
 
   for(int i = indexIni; i < posLimite; i += jump)
@@ -32,9 +25,9 @@ __global__ void os_menores(int *d_matrizes, int numMats, int posLimite, int jump
 }
 
 /* Imprime todas as matrizes de dimensão ExE contidas em matrizes*/
-void leitura (int *matrizes) {
+void leitura (int *matrizes, int numMats) {
   int i, k;
-  for (i = 0; i < numMatrizes * linhaElementos; i++) {
+  for (i = 0; i < numMats * linhaElementos; i++) {
     for (k = 0; k < linhaElementos; k++) 
       printf("%d\t", *(matrizes++));
     printf("\n");
@@ -63,13 +56,13 @@ void menorMatriz(int *d_matrizes, int numMats) {
       const int numMatThreads = 3; // 3 foi escolhido para que numthreads seja maior multiplo de E(tamanho de cada matriz) e menor que um warp(32)
       numThreads = E * numMatThreads; 
       int espacoTrabThre = 10 * numThreads; //cada thread devera comparar ate E * 10 matrizes
-      numBlocks = numMats / espacoTrabThre;
+      numBlocks = E * numMats / espacoTrabThre;
       numMatResto = numBlocks * numMatThreads;
     }
 
     posLimite = numMats * E;
     jump = numBlocks * numThreads;
-	  os_menores<<<numBlocks, numThreads>>>(d_matrizes, numMats, posLimite, jump);
+	  os_menores<<<numBlocks, numThreads>>>(d_matrizes, posLimite, jump);
     cudaDeviceSynchronize();
 
     menorMatriz(d_matrizes, numMatResto);
@@ -130,7 +123,7 @@ int main (int argc, char* argv[]) {
     fclose(entrada);
 
     encontraMenorMatriz(matrizes);
-    leitura(matrizes);
+    leitura(matrizes, 1);
 
 
 
