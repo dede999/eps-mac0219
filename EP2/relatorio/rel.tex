@@ -31,6 +31,10 @@ O próximo passo é chamar a função 2 que é responsável por determinar as ch
 
 Durante a implementação do EP, percebemos que operar a redução de S em relação a $\oplus$ na GPU é possível, mas sua implemetação fatalmenete será sequencial em algum ponto. Isto é, naturalmente há uma ordem na qual as operações deverão ser feitas/consideradas para que não haja condição de corrida ou que para garantir a correção do algoritmo.
 
-No nosso caso, dentro da função 1, cada thread olha um punhado de elementos das matrizes, e uma thread não acessará uma posição de memória que foi ou será acessada por outra, isso garante que duas threads não competirão pela mesma memória que não compararão o mesmo elemento mais de uma vez. Mas inegavelmete trata-se de um trecho sequencial. 
+No nosso caso, dentro da função 1, cada thread olha um punhado de elementos das matrizes, e uma thread não acessará uma posição de memória que foi ou será acessada por outra, isso garante que duas threads não competirão pela mesma memória que não compararão o mesmo elemento mais de uma vez. Mas inegavelmete trata-se de um trecho sequencial.
+
+\section{Rodando o programa}
+
+Nosso script de execução é \texttt{main}. Ele tem dois parâmetros: $\mathtt{\$1}$ que é o caminho do arquivo, e $\mathtt{\$2}$ que permite que se inclua uma flag de compilação seja incluída na execução
 
 \end{document}
